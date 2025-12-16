@@ -3,13 +3,12 @@
 #include "sort.h"
 /**
  * swap - swaps two integers
- * @a: pointer to first integer
- * @b: pointer to second integer
+ * @a: first integer
+ * @b: second integer
  */
 void swap(int *a, int *b)
 {
-int temp;
-temp = *a;
+int temp = *a;
 *a = *b;
 *b = temp;
 }
@@ -23,8 +22,7 @@ temp = *a;
  */
 int partition(int *array, int low, int high, size_t size)
 {
-int pivot = array[high];
-int i = low - 1, j;
+int pivot = array[high], i = low - 1, j;
 for (j = low; j < high; j++)
 {
 if (array[j] <= pivot)
@@ -53,10 +51,9 @@ return (i + 1);
  */
 void quick_sort_recursive(int *array, int low, int high, size_t size)
 {
-int pi;
 if (low < high)
 {
-pi = partition(array, low, high, size);
+int pi = partition(array, low, high, size);
 quick_sort_recursive(array, low, pi - 1, size);
 quick_sort_recursive(array, pi + 1, high, size);
 }
@@ -70,7 +67,6 @@ void quick_sort(int *array, size_t size)
 {
 if (!array || size < 2)
 return;
-print_array(array, size);
 quick_sort_recursive(array, 0, size - 1, size);
-print_array(array, size);
 }
+
