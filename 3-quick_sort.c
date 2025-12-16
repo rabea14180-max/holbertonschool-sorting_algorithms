@@ -1,76 +1,77 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "sort.h"
-#include "sort.h"
 /**
- * swap_ints - swaps two integers
+ * swap - swaps two integers in an array
  * @a: first integer
  * @b: second integer
  */
-static void swap_ints(int *a, int *b)
+static void swap(int *a, int *b)
 {
-int tmp = *a;
+int t;
+t = *a;
 *a = *b;
-*b = tmp;
+*b = t;
 }
 /**
- * lomuto_partition - Lomuto partition scheme
- * @array: array of integers
- * @low: starting index
- * @high: ending index (pivot)
- * @size: size of array
+ * lomuto - partitions array using Lomuto scheme
+ * @arr: array of integers
+ * @l: low index
+ * @h: high index
+ * @size: size of the array
  *
- * Return: pivot final index
+ * Return: final index of the pivot
  */
-static int lomuto_partition(int *array, int low, int high, size_t size)
+static int lomuto(int *arr, int l, int h, size_t size)
 {
-int pivot = array[high];
-int i = low;
-int j;
-for (j = low; j < high; j++)
+int pivot, i, j;
+pivot = arr[h];
+i = l;
+for (j = l; j < h; j++)
 {
-if (array[j] < pivot)
+if (arr[j] < pivot)
 {
 if (i != j)
 {
-swap_ints(&array[i], &array[j]);
-print_array(array, size);
+swap(&arr[i], &arr[j]);
+print_array(arr, size);
 }
 i++;
 }
 }
-if (i != high)
+if (i != h)
 {
-swap_ints(&array[i], &array[high]);
-print_array(array, size);
+swap(&arr[i], &arr[h]);
+print_array(arr, size);
 }
 return (i);
 }
 /**
- * quick_sort_recursive - recursive quick sort
- * @array: array of integers
- * @low: starting index
- * @high: ending index
+ * qs - recursively sorts array using quicksort
+ * @arr: array of integers
+ * @l: low index
+ * @h: high index
  * @size: size of array
  */
-static void quick_sort_recursive(int *array, int low, int high, size_t size)
+static void qs(int *arr, int l, int h, size_t size)
 {
 int p;
-if (low < high)
+if (l < h)
 {
-p = lomuto_partition(array, low, high, size);
-quick_sort_recursive(array, low, p - 1, size);
-quick_sort_recursive(array, p + 1, high, size);
+p = lomuto(arr, l, h, size);
+qs(arr, l, p - 1, size);
+qs(arr, p + 1, h, size);
 }
 }
 /**
- * quick_sort - sorts an array using Quick sort (Lomuto)
+ * quick_sort - sorts an array of integers in ascending order
+ *               using the Quick sort algorithm (Lomuto)
  * @array: array of integers
- * @size: number of elements
+ * @size: size of the array
  */
 void quick_sort(int *array, size_t size)
 {
 if (!array || size < 2)
 return;
-quick_sort_recursive(array, 0, (int)size - 1, size);
+qs(array, 0, size - 1, size);
 }
