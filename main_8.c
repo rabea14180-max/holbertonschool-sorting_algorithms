@@ -15,3 +15,8 @@ quick_sort(array, n);
 print_array(array, n);
 return (0);
 }
+if (array[i] != array[j])
+{
+swap(&array[i], &array[j]);
+print_array(array, size);
+}
